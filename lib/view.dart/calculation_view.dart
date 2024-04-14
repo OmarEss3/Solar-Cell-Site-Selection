@@ -3,16 +3,14 @@ import '../lists.dart';
 import '../widgets.dart/calculate_button.dart';
 import '../widgets.dart/customDropDownWidget.dart';
 
-
-
-class SolarCellSiteSelectionScreen extends StatefulWidget {
+class SolarCellSiteSelectionView extends StatefulWidget {
   @override
-  _SolarCellSiteSelectionScreenState createState() =>
-      _SolarCellSiteSelectionScreenState();
+  _SolarCellSiteSelectionViewState createState() =>
+      _SolarCellSiteSelectionViewState();
 }
 
-class _SolarCellSiteSelectionScreenState
-    extends State<SolarCellSiteSelectionScreen> {
+class _SolarCellSiteSelectionViewState
+    extends State<SolarCellSiteSelectionView> {
   String selectedSlope = 'Flat';
   String selectedAspect = 'South';
   String selectedSolarIrradiation = 'Irradiation excess > 42,000,000 W/m2';

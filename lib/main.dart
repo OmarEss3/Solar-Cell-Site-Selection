@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:solar_app/view.dart/LearnView.dart';
+import 'package:solar_app/view.dart/welcome_view.dart';
 import 'view.dart/calculation_view.dart';
 import 'widgets.dart/welcome_screen_button.dart';
 
@@ -21,37 +23,3 @@ class SolarApp extends StatelessWidget {
   }
 }
 
-class WelcomePage extends StatelessWidget {
-  const WelcomePage({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Solar Cell Site Selection'),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text(
-              'Welcome to Solar Cell Site Selection App',
-              style: TextStyle(fontSize: 52),
-            ),
-            WelcomeScreenButton(
-              hint: 'Start',
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => SolarCellSiteSelectionScreen()),
-                );
-              },
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
