@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 class WelcomeScreenButton extends StatelessWidget {
@@ -14,8 +13,9 @@ class WelcomeScreenButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: onPressed,
       style: ButtonStyle(
-        backgroundColor:
-            MaterialStateProperty.all<Color?>(Colors.deepPurpleAccent[400]),
+        backgroundColor: MaterialStateProperty.all<Color?>(
+          Colors.yellow[300],
+        ),
         minimumSize: MaterialStateProperty.all<Size>(
           const Size(double.infinity, 50), // Set the minimum width and height
         ),

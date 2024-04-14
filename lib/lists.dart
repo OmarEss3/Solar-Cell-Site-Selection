@@ -13,3 +13,20 @@ List<String> airHumidityOptions = ['High', 'Normal', 'Low', 'Very low'];
 List<String> landSurfaceTemperatureOptions = ['So hot', 'Hot', 'Normal', 'Cool'];
 List<String> transmissionLineOptions = ['0–500 m', '500–1000 m', '1000–1500 m', '1500–2000 m', '2000 m >'];
 
+
+
+List<String> distanceToMainRoadsOptions = [
+  '0-1,000 m',
+  '1,001-2,000 m',
+  '2,001-5,000 m',
+  '5,001-10,000 m',
+  '10,001-58,798 m',
+];
+
+List<String> distanceToUrbanAreasOptions = [
+  '0-5,000 m',
+  '5,001-10,000 m',
+  '10,000-20,000 m',
+  '20,000-50,000 m',
+  '> 50,000 m',
+];

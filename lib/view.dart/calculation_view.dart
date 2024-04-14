@@ -27,7 +27,6 @@ class _SolarCellSiteSelectionViewState
     return Scaffold(
       appBar: AppBar(
         title: const Text('Solar Cell Site Selection'),
-        backgroundColor: Colors.deepPurpleAccent[400],
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),

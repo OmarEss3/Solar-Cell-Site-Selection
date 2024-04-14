@@ -73,8 +73,9 @@ class CalculateButton extends StatelessWidget {
         );
       },
       style: ButtonStyle(
-        backgroundColor:
-            MaterialStateProperty.all<Color?>(Colors.deepPurpleAccent[400]),
+        backgroundColor: MaterialStateProperty.all<Color?>(
+          Colors.yellow[300],
+        ),
       ),
       child: const Text('Calculate'),
     );
