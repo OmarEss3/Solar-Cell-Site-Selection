@@ -1,112 +1,116 @@
 import 'package:flutter/material.dart';
-import '../lists.dart';
-import '../widgets.dart/calculate_button.dart';
-import '../widgets.dart/customDropDownWidget.dart';
+import '../models/Critirion_model.dart';
+import '../models/wieghted_value_model.dart';
 
-class SolarCellSiteSelectionView extends StatefulWidget {
+class CalculationView extends StatefulWidget {
+  final List<Criterion> criteria;
+
+  const CalculationView({Key? key, required this.criteria}) : super(key: key);
+
   @override
-  _SolarCellSiteSelectionViewState createState() =>
-      _SolarCellSiteSelectionViewState();
+  State<CalculationView> createState() => _CalculationViewState();
 }
 
-class _SolarCellSiteSelectionViewState
-    extends State<SolarCellSiteSelectionView> {
-  String selectedSlope = 'Flat';
-  String selectedAspect = 'South';
-  String selectedSolarIrradiation = 'Irradiation excess > 42,000,000 W/m2';
-  String selectedLandUse = 'City structure';
-  String selectedWindSpeed = 'Hard wind (10–12)';
-  String selectedAirTemperature = 'Hot';
-  String selectedAirPressure = 'High';
-  String selectedAirHumidity = 'High';
-  String selectedLandSurfaceTemperature = 'So hot';
-  String selectedTransmissionLine = '0–500 m';
+class _CalculationViewState extends State<CalculationView> {
+  final Map<String, String> selectedValues = {};
+  double totalScore = 0.0;
+  bool canCalculate = false;
+
+  void onValueChanged(String criterionName, String value) {
+    setState(() {
+      selectedValues[criterionName] = value;
+      canCalculate = selectedValues.values.every((v) => v.isNotEmpty);
+    });
+  }
+
+  void calculateScore() {
+    totalScore = 0.0;
+    for (var criterion in widget.criteria) {
+      final selectedValue = selectedValues[criterion.name];
+      if (selectedValue != null) {
+        final weightedValue = criterion.values.firstWhere(
+          (wv) => wv.value == selectedValue,
+          orElse: () => WeightedValue("", 0),
+        );
+        totalScore += criterion.weight * weightedValue.weight;
+      }
+    }
+
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text("Total Score"),
+        content: Text(
+          'Total Score: ${(totalScore / 12.94 * 100).toStringAsFixed(2)}%',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: const Text("OK"),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget buildCriterion(Criterion criterion) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          criterion.name,
+          style: const TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+        ),
+        const SizedBox(height: 5.0),
+        DropdownButtonFormField<String>(
+          decoration: InputDecoration(
+            hintText: 'Select ${criterion.name}',
+            border: const OutlineInputBorder(),
+            filled: true,
+            fillColor: Colors.grey[200],
+          ),
+          value: selectedValues[criterion.name],
+          items: criterion.values
+              .map((wv) => DropdownMenuItem(
+                    value: wv.value,
+                    child: Text(wv.value),
+                  ))
+              .toList(),
+          onChanged: (value) => onValueChanged(criterion.name, value!),
+          validator: (value) => value?.isEmpty ?? true
+              ? 'Please select a value for ${criterion.name}'
+              : null,
+        ),
+      ],
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Solar Cell Site Selection'),
+        title: const Text('Criteria Calculator'),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            buildDropdownField(selectedSlope, slopeOptions, (String? value) {
-              setState(() {
-                selectedSlope = value!;
-              });
-            }, 'Slope'),
-            buildDropdownField(selectedAspect, aspectOptions, (String? value) {
-              setState(() {
-                selectedAspect = value!;
-              });
-            }, 'Aspect'),
-            buildDropdownField(
-                selectedSolarIrradiation, solarIrradiationOptions,
-                (String? value) {
-              setState(() {
-                selectedSolarIrradiation = value!;
-              });
-            }, 'Solar irradiation'),
-            buildDropdownField(selectedLandUse, landUseOptions,
-                (String? value) {
-              setState(() {
-                selectedLandUse = value!;
-              });
-            }, 'Land use'),
-            buildDropdownField(selectedWindSpeed, windSpeedOptions,
-                (String? value) {
-              setState(() {
-                selectedWindSpeed = value!;
-              });
-            }, 'Wind speed'),
-            buildDropdownField(selectedAirTemperature, airTemperatureOptions,
-                (String? value) {
-              setState(() {
-                selectedAirTemperature = value!;
-              });
-            }, 'Air temperature'),
-            buildDropdownField(selectedAirPressure, airPressureOptions,
-                (String? value) {
-              setState(() {
-                selectedAirPressure = value!;
-              });
-            }, 'Air pressure'),
-            buildDropdownField(selectedAirHumidity, airHumidityOptions,
-                (String? value) {
-              setState(() {
-                selectedAirHumidity = value!;
-              });
-            }, 'Air humidity'),
-            buildDropdownField(
-                selectedLandSurfaceTemperature, landSurfaceTemperatureOptions,
-                (String? value) {
-              setState(() {
-                selectedLandSurfaceTemperature = value!;
-              });
-            }, 'Land surface Temperature'),
-            buildDropdownField(
-                selectedTransmissionLine, transmissionLineOptions,
-                (String? value) {
-              setState(() {
-                selectedTransmissionLine = value!;
-              });
-            }, 'Transmission line'),
-            CalculateButton(
-              selectedSlope: selectedSlope,
-              selectedAspect: selectedAspect,
-              selectedSolarIrradiation: selectedSolarIrradiation,
-              selectedLandUse: selectedLandUse,
-              selectedWindSpeed: selectedWindSpeed,
-              selectedAirTemperature: selectedAirTemperature,
-              selectedAirPressure: selectedAirPressure,
-              selectedAirHumidity: selectedAirHumidity,
-              selectedLandSurfaceTemperature: selectedLandSurfaceTemperature,
-              selectedTransmissionLine: selectedTransmissionLine,
-            ),
-          ],
+        child: Form(
+          autovalidateMode: AutovalidateMode.always,
+          child: Column(
+            children: [
+              for (var criterion in widget.criteria) buildCriterion(criterion),
+              const SizedBox(height: 20.0),
+              SizedBox(
+                width: MediaQuery.of(context).size.width,
+                child: ElevatedButton(
+                  onPressed: canCalculate ? calculateScore : null,
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(Colors.yellow[300]),
+                  ),
+                  child: const Text('Calculate'),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

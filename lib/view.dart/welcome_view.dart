@@ -1,8 +1,8 @@
-
 import 'package:flutter/material.dart';
 import 'package:solar_app/view.dart/LearnView.dart';
 import 'package:solar_app/view.dart/calculation_view.dart';
 import 'package:solar_app/widgets.dart/welcome_screen_button.dart';
+import '../wieghts.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({Key? key}) : super(key: key);
@@ -30,7 +30,9 @@ class WelcomePage extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => SolarCellSiteSelectionView()),
+                        builder: (context) =>
+                            CalculationView(criteria: criteria),
+                      ),
                     );
                   },
                 ),
