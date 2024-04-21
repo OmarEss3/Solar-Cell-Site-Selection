@@ -2,16 +2,17 @@ import 'package:flutter/material.dart';
 import '../models/Critirion_model.dart';
 import '../models/wieghted_value_model.dart';
 
-class CalculationView extends StatefulWidget {
+class CalculationView2 extends StatefulWidget {
   final List<Criterion> criteria;
 
-  const CalculationView({Key? key, required this.criteria}) : super(key: key);
+  const CalculationView2({Key? key, required this.criteria})
+      : super(key: key);
 
   @override
-  State<CalculationView> createState() => _CalculationViewState();
+  State<CalculationView2> createState() => _CalculationView2State();
 }
 
-class _CalculationViewState extends State<CalculationView> {
+class _CalculationView2State extends State<CalculationView2> {
   final Map<String, String> selectedValues = {};
   double totalScore = 0.0;
   bool canCalculate = false;
@@ -89,7 +90,7 @@ class _CalculationViewState extends State<CalculationView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Criteria Calculator'),
+        title: const Text('Enter 2st Site info'),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
@@ -104,7 +105,8 @@ class _CalculationViewState extends State<CalculationView> {
                 child: ElevatedButton(
                   onPressed: canCalculate ? calculateScore : null,
                   style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(Colors.yellow[300]),
+                    backgroundColor:
+                        MaterialStateProperty.all(Colors.yellow[300]),
                   ),
                   child: const Text('Calculate'),
                 ),

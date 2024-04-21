@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:solar_app/view.dart/LearnView.dart';
-import 'package:solar_app/view.dart/calculation_view.dart';
 import 'package:solar_app/widgets.dart/welcome_screen_button.dart';
 import '../wieghts.dart';
+import 'calculation_view1.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({Key? key}) : super(key: key);
@@ -19,7 +19,9 @@ class WelcomePage extends StatelessWidget {
               children: [
                 const Text(
                   'Welcome to Solar Cell Site Selection App',
-                  style: TextStyle(fontSize: 67),
+                  style: TextStyle(
+                    fontSize: 67,
+                  ),
                 ),
                 const SizedBox(
                   height: 20,
@@ -30,8 +32,8 @@ class WelcomePage extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) =>
-                            CalculationView(criteria: criteria),
+                        builder: (context) => CalculationView(
+                            criteria: criteria),
                       ),
                     );
                   },
@@ -44,8 +46,7 @@ class WelcomePage extends StatelessWidget {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(
-                          builder: (context) => const LearnView()),
+                      MaterialPageRoute(builder: (context) => LearnMoreView()),
                     );
                   },
                 ),
