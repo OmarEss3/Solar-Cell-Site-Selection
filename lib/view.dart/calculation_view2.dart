@@ -1,11 +1,21 @@
 import 'package:flutter/material.dart';
 import '../models/Critirion_model.dart';
 import '../models/wieghted_value_model.dart';
+import 'report_view.dart';
+
 
 class CalculationView2 extends StatefulWidget {
   final List<Criterion> criteria;
+  final List<String> slctdPrcntgs1;
+  final Map<String, String> slctdVal1;
 
-  const CalculationView2({Key? key, required this.criteria})
+  final double totalScore1;
+  const CalculationView2(
+      {Key? key,
+      required this.slctdVal1,
+      required this.criteria,
+      required this.slctdPrcntgs1,
+      required this.totalScore1})
       : super(key: key);
 
   @override
@@ -13,45 +23,33 @@ class CalculationView2 extends StatefulWidget {
 }
 
 class _CalculationView2State extends State<CalculationView2> {
-  final Map<String, String> selectedValues = {};
-  double totalScore = 0.0;
   bool canCalculate = false;
+  double totalScore2 = 0.0;
+  List<String> slctdPrcntgs2 = [];
+final Map<String, String> selectedValues2 = {};
 
   void onValueChanged(String criterionName, String value) {
     setState(() {
-      selectedValues[criterionName] = value;
-      canCalculate = selectedValues.values.every((v) => v.isNotEmpty);
+      selectedValues2[criterionName] = value;
+      canCalculate = selectedValues2.values.every((v) => v.isNotEmpty);
     });
   }
 
   void calculateScore() {
-    totalScore = 0.0;
+    totalScore2 = 0.0;
+
     for (var criterion in widget.criteria) {
-      final selectedValue = selectedValues[criterion.name];
+      final selectedValue = selectedValues2[criterion.name];
       if (selectedValue != null) {
         final weightedValue = criterion.values.firstWhere(
           (wv) => wv.value == selectedValue,
           orElse: () => WeightedValue("", 0),
         );
-        totalScore += criterion.weight * weightedValue.weight;
+        totalScore2 += criterion.weight * weightedValue.weight;
+        slctdPrcntgs2.add(
+            '${(((criterion.weight * weightedValue.weight) / 12.94)*100).toStringAsFixed(2)}%');
       }
     }
-
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text("Total Score"),
-        content: Text(
-          'Total Score: ${(totalScore / 12.94 * 100).toStringAsFixed(2)}%',
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child: const Text("OK"),
-          ),
-        ],
-      ),
-    );
   }
 
   Widget buildCriterion(Criterion criterion) {
@@ -70,7 +68,7 @@ class _CalculationView2State extends State<CalculationView2> {
             filled: true,
             fillColor: Colors.grey[200],
           ),
-          value: selectedValues[criterion.name],
+          value: selectedValues2[criterion.name],
           items: criterion.values
               .map((wv) => DropdownMenuItem(
                     value: wv.value,
@@ -103,7 +101,22 @@ class _CalculationView2State extends State<CalculationView2> {
               SizedBox(
                 width: MediaQuery.of(context).size.width,
                 child: ElevatedButton(
-                  onPressed: canCalculate ? calculateScore : null,
+                  onPressed: canCalculate
+                      ? () {
+                          calculateScore();
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (BuildContext context) => ReportView(
+                                      slctdVal2: selectedValues2,
+                                      slctdVal1: widget. slctdVal1,
+                                      slctdPrcntgs1: widget.slctdPrcntgs1,
+                                      slctdPrcntgs2: slctdPrcntgs2,
+                                      totalScore1: widget.totalScore1,
+                                      totalScore2: totalScore2,
+                                    )),
+                          );
+                        }
+                      : null,
                   style: ButtonStyle(
                     backgroundColor:
                         MaterialStateProperty.all(Colors.yellow[300]),

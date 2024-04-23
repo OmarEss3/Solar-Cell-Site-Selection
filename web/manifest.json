@@ -1,6 +1,6 @@
 {
-    "name": "solar_app",
-    "short_name": "solar_app",
+    "name": "solar",
+    "short_name": "solar",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

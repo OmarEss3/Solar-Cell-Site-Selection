@@ -1,4 +1,4 @@
-# solar_app
+# solar
 
 A new Flutter project.
 

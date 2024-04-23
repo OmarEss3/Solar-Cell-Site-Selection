@@ -33,7 +33,8 @@ final criteria = [
       WeightedValue(">= 5 degrees", 0),
     ],
     weight: 0.16,
-  ), Criterion(
+  ),
+  Criterion(
     "Climate (Wind)Wind Speed (Velocity)",
     [
       WeightedValue("4.5–5.6", 4),
@@ -61,7 +62,7 @@ final criteria = [
       WeightedValue("10,001–20,000", 8),
       WeightedValue("20,001–30,000", 7),
       WeightedValue("30,001–40,000", 6),
-      WeightedValue("40,001–50,001",5),
+      WeightedValue("40,001–50,001", 5),
       WeightedValue("50,001–100,001", 2),
       WeightedValue("100,000–148,348", 1),
     ],

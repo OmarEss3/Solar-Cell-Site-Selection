@@ -4,6 +4,8 @@ import '../models/Critirion_model.dart';
 import '../models/wieghted_value_model.dart';
 import '../wieghts.dart';
 
+final Map<String, String> selectedValues1 = {};
+
 class CalculationView extends StatefulWidget {
   final List<Criterion> criteria;
 
@@ -14,45 +16,32 @@ class CalculationView extends StatefulWidget {
 }
 
 class _CalculationViewState extends State<CalculationView> {
-  final Map<String, String> selectedValues = {};
-  double totalScore = 0.0;
   bool canCalculate = false;
+  List<String> slctdPrcntgs1 = [];
+  double totalScore1 = 0.0;
 
   void onValueChanged(String criterionName, String value) {
     setState(() {
-      selectedValues[criterionName] = value;
-      canCalculate = selectedValues.values.every((v) => v.isNotEmpty);
+      selectedValues1[criterionName] = value;
+      canCalculate = selectedValues1.values.every((v) => v.isNotEmpty);
     });
   }
 
   void calculateScore() {
-    totalScore = 0.0;
+    totalScore1 = 0.0;
+
     for (var criterion in widget.criteria) {
-      final selectedValue = selectedValues[criterion.name];
+      final selectedValue = selectedValues1[criterion.name];
       if (selectedValue != null) {
         final weightedValue = criterion.values.firstWhere(
           (wv) => wv.value == selectedValue,
           orElse: () => WeightedValue("", 0),
         );
-        totalScore += criterion.weight * weightedValue.weight;
+        totalScore1 += criterion.weight * weightedValue.weight;
+        slctdPrcntgs1.add(
+            '${(((criterion.weight * weightedValue.weight) / 12.94)*100).toStringAsFixed(2)}%');
       }
     }
-
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text("Total Score"),
-        content: Text(
-          'Total Score: ${(totalScore / 12.94 * 100).toStringAsFixed(2)}%',
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child: const Text("OK"),
-          ),
-        ],
-      ),
-    );
   }
 
   Widget buildCriterion(Criterion criterion) {
@@ -71,7 +60,7 @@ class _CalculationViewState extends State<CalculationView> {
             filled: true,
             fillColor: Colors.grey[200],
           ),
-          value: selectedValues[criterion.name],
+          value: selectedValues1[criterion.name],
           items: criterion.values
               .map((wv) => DropdownMenuItem(
                     value: wv.value,
@@ -106,10 +95,16 @@ class _CalculationViewState extends State<CalculationView> {
                 child: ElevatedButton(
                   onPressed: canCalculate
                       ? () {
+                          calculateScore();
                           Navigator.of(context).push(
                             MaterialPageRoute(
                                 builder: (BuildContext context) =>
-                                    CalculationView2(criteria: criteria)),
+                                    CalculationView2(
+                                      criteria: criteria,
+                                      slctdPrcntgs1: slctdPrcntgs1,
+                                      totalScore1: totalScore1,
+                                      slctdVal1: selectedValues1,
+                                    )),
                           );
                         }
                       : null,
