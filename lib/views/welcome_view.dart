@@ -1,7 +1,5 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
-
 import 'home_view.dart';
 
 class WelcomeView extends StatefulWidget {
@@ -54,14 +52,14 @@ class _WelcomeViewState extends State<WelcomeView>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white, // Adjust background color as needed
+      backgroundColor: Colors.white,
       body: Center(
         child: FadeTransition(
           opacity: _fadeInFadeOut,
           child: Image.asset(
-            'assets/icon.jpeg', // Path to your image asset
-            width: 200, // Adjust width as needed
-            height: 200, // Adjust height as needed
+            'assets/images/welscreen.png',
+            width: 200,
+            height: 200,
           ),
         ),
       ),

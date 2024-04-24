@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:pdf/pdf.dart';
 import 'package:share/share.dart';
-import 'dart:io';
-
 import '../Services/generate_PDF.dart';
-import '../models/Critirion_model.dart';
 import '../widgets.dart/build_table.dart';
 import '../widgets.dart/report_conclusion.dart';
 import '../wieghts.dart';
