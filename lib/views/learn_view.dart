@@ -66,6 +66,7 @@ class LearnMoreView extends StatelessWidget {
           );
         },
       ),
+      
     );
   }
 }

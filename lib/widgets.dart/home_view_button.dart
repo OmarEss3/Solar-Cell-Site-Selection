@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class HomeViewButton extends StatelessWidget {
-  const HomeViewButton({
+class HomeViewButtons extends StatelessWidget {
+  const HomeViewButtons({
     super.key,
     required this.hint,
     required this.onPressed,
