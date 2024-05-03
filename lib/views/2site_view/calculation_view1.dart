@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:solar_app/views/calculation_view2.dart';
-import '../models/Critirion_model.dart';
-import '../models/wieghted_value_model.dart';
-import '../wieghts.dart';
+import 'package:solar_app/views/2site_view/calculation_view2.dart';
+import '../../models/Critirion_model.dart';
+import '../../models/wieghted_value_model.dart';
+import '../../wieghts.dart';
 
 final Map<String, String> selectedValues1 = {};
 

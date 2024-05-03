@@ -3,7 +3,7 @@ import 'package:solar_app/views/1site_view.dart';
 import 'package:solar_app/views/learn_view.dart';
 import 'package:solar_app/widgets.dart/home_view_button.dart';
 import '../wieghts.dart';
-import 'calculation_view1.dart';
+import '2site_view/calculation_view1.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({Key? key}) : super(key: key);
