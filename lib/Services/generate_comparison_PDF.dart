@@ -20,7 +20,6 @@ Future<File> generateComparisonPdf(
 ) async {
   final pdf = pdfWidgets.Document();
 
-  // Add pages to the PDF document
   pdf.addPage(
     pdfWidgets.MultiPage(
       build: (context) {
@@ -34,7 +33,6 @@ Future<File> generateComparisonPdf(
           return pdfWidgets.Table(
             border: pdfWidgets.TableBorder.all(),
             children: [
-              // Table header
               pdfWidgets.TableRow(
                 children: [
                   pdfWidgets.Text('Criterion',
@@ -48,7 +46,6 @@ Future<File> generateComparisonPdf(
                           fontWeight: pdfWidgets.FontWeight.bold)),
                 ],
               ),
-              // Table rows
               ...criteria.map((criterion) {
                 final slctdval = slctdVals[criterion.name];
                 final score = percentage[criteria.indexOf(criterion)];
@@ -60,7 +57,6 @@ Future<File> generateComparisonPdf(
                   ],
                 );
               }).toList(),
-              // Total Score row
               pdfWidgets.TableRow(
                 children: [
                   pdfWidgets.Text('Total Score:',
@@ -116,7 +112,6 @@ Future<File> generateComparisonPdf(
     ),
   );
 
-  // Save the document
   final String dir = (await getApplicationDocumentsDirectory()).path;
   final String path = '$dir/report.pdf';
   final File file = File(path);

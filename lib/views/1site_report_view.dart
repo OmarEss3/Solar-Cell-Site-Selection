@@ -18,7 +18,7 @@ class OneSiteReportView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Comparison Report'),
+        title: const Text('Suitability Report'),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -27,12 +27,12 @@ class OneSiteReportView extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text(
-                'This is a report to analyze the suitability between your Two Sites:',
+                'This is a report to analyze the suitability of your Site:',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 16),
               buildResultTable(
-                'Site 1',
+                'Site:',
                 slctdPrcntgs,
                 criteria,
                 slctdVal,
@@ -63,5 +63,4 @@ class OneSiteReportView extends StatelessWidget {
       ),
     );
   }
-
- }
+}

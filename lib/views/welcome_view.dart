@@ -20,7 +20,7 @@ class _WelcomeViewState extends State<WelcomeView>
     _animationController = AnimationController(
       vsync: this,
       duration:
-          const Duration(seconds: 2), // Adjust animation duration as needed
+          const Duration(seconds: 2), 
     );
     _fadeInFadeOut = Tween<double>(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(
@@ -28,7 +28,7 @@ class _WelcomeViewState extends State<WelcomeView>
         curve: Curves.easeInOut,
       ),
     );
-    _animationController.repeat(reverse: true); // Make the animation loop
+    _animationController.repeat(reverse: true); 
     _navigateToMainPage();
   }
 
@@ -39,7 +39,6 @@ class _WelcomeViewState extends State<WelcomeView>
   }
 
   void _navigateToMainPage() {
-    // Delay navigation to the main page for 3 seconds
     Timer(const Duration(seconds: 3), () {
       Navigator.pushReplacement(
         context,

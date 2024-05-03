@@ -3,19 +3,17 @@ import 'dart:io';
 import 'package:path_provider/path_provider.dart';
 
 import '../models/Critirion_model.dart';
-import '../widgets.dart/report_conclusion.dart';
 import 'package:pdf/widgets.dart' as pdfWidgets;
 
 Future<File> generate1SitePDF(
   String siteName,
-  List<String> percentage1,
+  List<String> percentage,
   List<Criterion> criteria,
-  Map<String, String> slctdVals1,
-  double totalScore1,
+  Map<String, String> slctdVals,
+  double totalScore,
 ) async {
   final pdf = pdfWidgets.Document();
 
-  // Add pages to the PDF document
   pdf.addPage(
     pdfWidgets.MultiPage(
       build: (context) {
@@ -29,7 +27,6 @@ Future<File> generate1SitePDF(
           return pdfWidgets.Table(
             border: pdfWidgets.TableBorder.all(),
             children: [
-              // Table header
               pdfWidgets.TableRow(
                 children: [
                   pdfWidgets.Text('Criterion',
@@ -43,7 +40,6 @@ Future<File> generate1SitePDF(
                           fontWeight: pdfWidgets.FontWeight.bold)),
                 ],
               ),
-              // Table rows
               ...criteria.map((criterion) {
                 final slctdval = slctdVals[criterion.name];
                 final score = percentage[criteria.indexOf(criterion)];
@@ -55,7 +51,6 @@ Future<File> generate1SitePDF(
                   ],
                 );
               }).toList(),
-              // Total Score row
               pdfWidgets.TableRow(
                 children: [
                   pdfWidgets.Text('Total Score:',
@@ -73,10 +68,10 @@ Future<File> generate1SitePDF(
         }
 
         return [
-          pdfWidgets.Header(level: 0, text: 'Comparison Report'),
+          pdfWidgets.Header(level: 0, text: 'Suitability Report'),
           pdfWidgets.Paragraph(
             text:
-                'This is a report to analyze the suitability between your Two Sites:',
+                'This is a report to analyze the suitability of your Site:',
             style: pdfWidgets.TextStyle(
                 fontSize: 18, fontWeight: pdfWidgets.FontWeight.bold),
           ),
@@ -85,23 +80,18 @@ Future<File> generate1SitePDF(
           pdfWidgets.SizedBox(height: 8),
           table(
             'Site 1',
-            percentage1,
+            percentage,
             criteria,
-            slctdVals1,
-            totalScore1,
+            slctdVals,
+            totalScore,
           ),
           pdfWidgets.SizedBox(height: 16),
-          pdfWidgets.Text('Site 2'),
-          pdfWidgets.SizedBox(height: 8),
-          pdfWidgets.SizedBox(height: 16),
-          pdfWidgets.Paragraph(
-          )
+         
         ];
       },
     ),
   );
 
-  // Save the document
   final String dir = (await getApplicationDocumentsDirectory()).path;
   final String path = '$dir/report.pdf';
   final File file = File(path);

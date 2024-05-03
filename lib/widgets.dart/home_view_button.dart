@@ -17,7 +17,7 @@ class HomeViewButtons extends StatelessWidget {
           Colors.yellow[300],
         ),
         minimumSize: MaterialStateProperty.all<Size>(
-          const Size(double.infinity, 50), // Set the minimum width and height
+          const Size(double.infinity, 50), 
         ),
       ),
       child: Text(
