@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:solar_app/views/1site_view.dart';
 import 'package:solar_app/views/learn_view.dart';
 import 'package:solar_app/widgets.dart/home_view_button.dart';
-import '../wieghts.dart'; // Assuming this is where your 'criteria' variable is defined
+import '../wieghts.dart';
 import 'calculation_view1.dart';
 
 class HomeView extends StatelessWidget {
@@ -22,8 +23,7 @@ class HomeView extends StatelessWidget {
             ),
           ),
           Container(
-            color: Colors.black.withOpacity(
-                0.5), // Adjust opacity to make it lighter or darker
+            color: Colors.black.withOpacity(0.5),
           ),
           Center(
             child: Padding(
@@ -54,15 +54,23 @@ class HomeView extends StatelessWidget {
                   ),
                   const SizedBox(height: 8),
                   const Text(
-                    'To compare between your two sities',
+                    'How optimal your solar site is?',
                     style: TextStyle(
                       fontSize: 16,
                       color: Color.fromARGB(236, 255, 255, 255),
                     ),
                   ),
                   const Spacer(flex: 2),
+                  const Text(
+                    'Do you have one or Two?',
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Color.fromARGB(236, 255, 255, 255),
+                    ),
+                  ),
+                  const SizedBox(height: 20),
                   HomeViewButtons(
-                    hint: 'Start',
+                    hint: 'Two Sites',
                     onPressed: () {
                       Navigator.push(
                         context,
@@ -75,7 +83,21 @@ class HomeView extends StatelessWidget {
                   ),
                   const SizedBox(height: 20),
                   HomeViewButtons(
-                    hint: 'Learn More',
+                    hint: 'One Site',
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => OneSiteView(
+                            criteria: criteria,
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                  const SizedBox(height: 20),
+                  HomeViewButtons(
+                    hint: 'about criteria',
                     onPressed: () {
                       Navigator.push(
                         context,

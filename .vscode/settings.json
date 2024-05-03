@@ -1,3 +1,6 @@
 {
-    "java.configuration.updateBuildConfiguration": "interactive"
+    "java.configuration.updateBuildConfiguration": "interactive",
+    "cmake.sourceDirectory": "D:/Flutter/solar_app/linux/flutter",
+    "editor.experimentalInlineEdit.showToolbar": "always",
+    "editor.inlineSuggest.showToolbar": "always"
 }

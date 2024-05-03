@@ -4,6 +4,7 @@ import '../Services/generate_PDF.dart';
 import '../widgets.dart/build_table.dart';
 import '../widgets.dart/report_conclusion.dart';
 import '../wieghts.dart';
+import 'learn_view.dart';
 
 class ReportView extends StatelessWidget {
   final List<String> slctdPrcntgs1;
@@ -62,22 +63,42 @@ class ReportView extends StatelessWidget {
               // Calculate and display overall conclusion
               Text(
                 buildOverallConclusion(totalScore1, totalScore2),
-              )
+              ),
+              Row(
+                children: [
+                  const Text(
+                      'If you wonder about how each of the criteria affects, you can'),
+                  TextButton(
+                    child: const Text('Click here!'),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => LearnMoreView(),
+                        ),
+                      );
+                    },
+                  )
+                ],
+              ),
             ],
           ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          final pdfFile = await generatePdf( 'Site 1',
-              slctdPrcntgs1,
-              criteria,
-              slctdVal1,
-              totalScore1, 'Site 2',
-              slctdPrcntgs2,
-              criteria,
-              slctdVal2,
-              totalScore2,);
+          final pdfFile = await generatePdf(
+            'Site 1',
+            slctdPrcntgs1,
+            criteria,
+            slctdVal1,
+            totalScore1,
+            'Site 2',
+            slctdPrcntgs2,
+            criteria,
+            slctdVal2,
+            totalScore2,
+          );
           Share.shareFiles([pdfFile.path],
               text: 'Here is the comparison report!');
         },
