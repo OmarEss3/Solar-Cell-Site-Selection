@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:solar_app/views/1site_view.dart';
-import 'package:solar_app/views/learn_view.dart';
+import 'package:solar_app/views/about_view.dart';
 import 'package:solar_app/widgets.dart/home_view_button.dart';
 import '../wieghts.dart';
 import '2site_view/calculation_view1.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({Key? key}) : super(key: key);
-
+  final TextStyle textStyle = const TextStyle(
+    fontSize: 16,
+    color: Color.fromARGB(236, 255, 255, 255),
+  );
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,7 +20,7 @@ class HomeView extends StatelessWidget {
             decoration: const BoxDecoration(
               image: DecorationImage(
                 image: AssetImage(
-                    "assets/images/How Solar Panels Work on Cloudy Days _ SunPower Solar Blog.jpeg"), // Replace with your image path
+                    "assets/images/How Solar Panels Work on Cloudy Days _ SunPower Solar Blog.jpeg"),
                 fit: BoxFit.cover,
               ),
             ),
@@ -53,20 +56,14 @@ class HomeView extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 8),
-                  const Text(
+                  Text(
                     'How optimal your solar site is?',
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Color.fromARGB(236, 255, 255, 255),
-                    ),
+                    style: textStyle,
                   ),
                   const Spacer(flex: 2),
-                  const Text(
+                  Text(
                     'Do you have one or Two?',
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Color.fromARGB(236, 255, 255, 255),
-                    ),
+                    style: textStyle,
                   ),
                   const SizedBox(height: 20),
                   HomeViewButtons(
@@ -102,7 +99,7 @@ class HomeView extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => LearnMoreView(),
+                          builder: (context) => AboutCriteriaView(),
                         ),
                       );
                     },

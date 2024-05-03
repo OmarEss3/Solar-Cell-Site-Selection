@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:share/share.dart';
-import '../Services/generate_PDF.dart';
-import '../widgets.dart/build_table.dart';
-import '../widgets.dart/report_conclusion.dart';
-import '../wieghts.dart';
-import 'learn_view.dart';
+import 'package:solar_app/widgets.dart/CustomWrap.dart';
+import '../../Services/generate_comparison_PDF.dart';
+import '../../widgets.dart/build_table.dart';
+import '../../widgets.dart/report_conclusion.dart';
+import '../../wieghts.dart';
 
 class ReportView extends StatelessWidget {
   final List<String> slctdPrcntgs1;
@@ -64,30 +64,14 @@ class ReportView extends StatelessWidget {
               Text(
                 buildOverallConclusion(totalScore1, totalScore2),
               ),
-              Row(
-                children: [
-                  const Text(
-                      'If you wonder about how each of the criteria affects, you can'),
-                  TextButton(
-                    child: const Text('Click here!'),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => LearnMoreView(),
-                        ),
-                      );
-                    },
-                  )
-                ],
-              ),
+              customWrap(context),
             ],
           ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          final pdfFile = await generatePdf(
+          final pdfFile = await generateComparisonPdf(
             'Site 1',
             slctdPrcntgs1,
             criteria,

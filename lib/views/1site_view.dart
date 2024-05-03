@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:solar_app/views/2site_view/calculation_view2.dart';
+import 'package:solar_app/views/1site_report_view.dart';
 import '../models/Critirion_model.dart';
 import '../models/wieghted_value_model.dart';
-import '../wieghts.dart';
 
-final Map<String, String> selectedValues1 = {};
+final Map<String, String> selectedValues = {};
 
 class OneSiteView extends StatefulWidget {
   final List<Criterion> criteria;
@@ -17,28 +16,28 @@ class OneSiteView extends StatefulWidget {
 
 class _OneSiteViewState extends State<OneSiteView> {
   bool canCalculate = false;
-  List<String> slctdPrcntgs1 = [];
-  double totalScore1 = 0.0;
+  List<String> slctdPrcntgs = [];
+  double totalScore = 0.0;
 
   void onValueChanged(String criterionName, String value) {
     setState(() {
-      selectedValues1[criterionName] = value;
-      canCalculate = selectedValues1.values.every((v) => v.isNotEmpty);
+      selectedValues[criterionName] = value;
+      canCalculate = selectedValues.values.every((v) => v.isNotEmpty);
     });
   }
 
   void calculateScore() {
-    totalScore1 = 0.0;
+    totalScore = 0.0;
 
     for (var criterion in widget.criteria) {
-      final selectedValue = selectedValues1[criterion.name];
+      final selectedValue = selectedValues[criterion.name];
       if (selectedValue != null) {
         final weightedValue = criterion.values.firstWhere(
           (wv) => wv.value == selectedValue,
           orElse: () => WeightedValue("", 0),
         );
-        totalScore1 += criterion.weight * weightedValue.weight;
-        slctdPrcntgs1.add(
+        totalScore += criterion.weight * weightedValue.weight;
+        slctdPrcntgs.add(
             '${(((criterion.weight * weightedValue.weight) / 12.94)*100).toStringAsFixed(2)}%');
       }
     }
@@ -60,7 +59,7 @@ class _OneSiteViewState extends State<OneSiteView> {
             filled: true,
             fillColor: Colors.grey[200],
           ),
-          value: selectedValues1[criterion.name],
+          value: selectedValues[criterion.name],
           items: criterion.values
               .map((wv) => DropdownMenuItem(
                     value: wv.value,
@@ -95,16 +94,17 @@ class _OneSiteViewState extends State<OneSiteView> {
                 child: ElevatedButton(
                   onPressed: canCalculate
                       ? () {
-                          calculateScore();
+                           calculateScore();
                           Navigator.of(context).push(
                             MaterialPageRoute(
-                                builder: (BuildContext context) =>
-                                    CalculationView2(
-                                      criteria: criteria,
-                                      slctdPrcntgs1: slctdPrcntgs1,
-                                      totalScore1: totalScore1,
-                                      slctdVal1: selectedValues1,
-                                    )),
+                                builder: (BuildContext context) => OneSiteReportView(
+                                     
+                                      slctdVal:  selectedValues,
+                                      slctdPrcntgs: slctdPrcntgs,
+                                   
+                                      totalScore: totalScore,
+                                     
+                                    ),),
                           );
                         }
                       : null,

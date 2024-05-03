@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../models/Critirion_model.dart';
 import '../../models/wieghted_value_model.dart';
-import '../report_view.dart';
+import '2site_report_view.dart';
 
 
 class CalculationView2 extends StatefulWidget {

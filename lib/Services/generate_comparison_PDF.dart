@@ -6,7 +6,7 @@ import '../models/Critirion_model.dart';
 import '../widgets.dart/report_conclusion.dart';
 import 'package:pdf/widgets.dart' as pdfWidgets;
 
-Future<File> generatePdf(
+Future<File> generateComparisonPdf(
   String siteName,
   List<String> percentage1,
   List<Criterion> criteria,
@@ -78,7 +78,6 @@ Future<File> generatePdf(
         }
 
         return [
-          // Add your PDF content here
           pdfWidgets.Header(level: 0, text: 'Comparison Report'),
           pdfWidgets.Paragraph(
             text:
@@ -89,7 +88,6 @@ Future<File> generatePdf(
           pdfWidgets.SizedBox(height: 16),
           pdfWidgets.Text('Site 1'),
           pdfWidgets.SizedBox(height: 8),
-
           table(
             'Site 1',
             percentage1,
